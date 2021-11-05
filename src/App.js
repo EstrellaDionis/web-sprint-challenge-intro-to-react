@@ -3,6 +3,11 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import CharacterContainer from '../src/components/CharacterContainer'
 import { data } from './mocks/handlers'
+import styled from 'styled-components';
+
+const StyledApp = styled.div`
+  height: 100vh;
+`
 
 const App = () => {
   const [characters, setCharacters] = useState(data);
@@ -10,7 +15,6 @@ const App = () => {
   useEffect(() => {
     axios.get('https://swapi.dev/api/people')
     .then(res => {
-      // console.log(res.data)
       setCharacters(res.data)
     })
     .catch(err => console.error(err));
@@ -25,10 +29,10 @@ const App = () => {
   // sync up with, if any.
 
   return (
-    <div className="App">
+    <StyledApp className="App">
       <h1 className="Header">React Wars</h1>
-      <CharacterContainer characters={characters}/>
-    </div>
+      <CharacterContainer className='container' characters={characters}/>
+    </StyledApp>
   );
 }
 
