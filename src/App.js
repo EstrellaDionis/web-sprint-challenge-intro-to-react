@@ -1,7 +1,22 @@
-import React from 'react';
+import axios from 'axios';
+import React, {useState, useEffect} from 'react';
 import './App.css';
+import CharacterContainer from '../src/components/CharacterContainer'
+import { data } from './mocks/handlers'
 
 const App = () => {
+  const [characters, setCharacters] = useState(data);
+  console.log(data)
+  useEffect(() => {
+    axios.get('https://swapi.dev/api/people')
+    .then(res => {
+      // console.log(res.data)
+      setCharacters(res.data)
+    })
+    .catch(err => console.error(err));
+  }, [])
+
+
   // Try to think through what state you'll need for this app before starting. Then build out
   // the state properties here.
 
@@ -11,7 +26,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1 className="Header">Characters</h1>
+      <h1 className="Header">React Wars</h1>
+      <CharacterContainer characters={characters}/>
     </div>
   );
 }
